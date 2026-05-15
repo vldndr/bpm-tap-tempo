@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BPM Tap Tempo</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 48px 24px 64px;
+      gap: 28px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    body.bg-dark    { background: #0a0a0c; color: #f0f0f5; }
+    body.bg-modern  { background: #0a0a0c; color: #f0f0f5; }
+    body.bg-light   { background: #e4e4e7; color: #18181b; }
+    body.bg-vintage { background: #1a0f00; color: #f5dfa0; }
+
+    h1 {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      opacity: 0.4;
+      transition: color 0.3s;
+    }
+
+    .theme-switcher {
+      display: flex;
+      gap: 6px;
+    }
+
+    .theme-btn {
+      background: transparent;
+      border: 1px solid rgba(128,128,128,0.25);
+      color: inherit;
+      opacity: 0.5;
+      padding: 5px 13px;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      cursor: pointer;
+      text-transform: uppercase;
+      transition: all 0.15s;
+    }
+
+    .theme-btn:hover { opacity: 0.85; border-color: rgba(128,128,128,0.5); }
+
+    body.bg-modern .theme-btn.active { 
+      border-color: #00f2ff; 
+      color: #00f2ff; 
+      opacity: 1; 
+      background: rgba(0, 242, 255, 0.1); 
+    }
+
+    body.bg-dark .theme-btn.active { 
+      border-color: #10b981; 
+      color: #10b981; 
+      opacity: 1; 
+      background: rgba(16, 185, 129, 0.1); 
+    }
+
+    body.bg-light .theme-btn.active { 
+      border-color: #059669; 
+      color: #059669; 
+      opacity: 1; 
+      background: rgba(5, 150, 105, 0.08); 
+    }
+
+    body.bg-vintage .theme-btn.active { 
+      border-color: #d4a843; 
+      color: #d4a843; 
+      opacity: 1; 
+      background: rgba(212,168,67,0.1); 
+    }
+    kbd {
+      display: inline-block;
+      background: rgba(128,128,128,0.15);
+      border: 1px solid rgba(128,128,128,0.2);
+      border-radius: 3px;
+      padding: 1px 5px;
+      font-family: system-ui;
+      font-size: 0.62rem;
+      opacity: 0.7;
+    }
+
+    .hint {
+      font-size: 0.65rem;
+      opacity: 0.35;
+      letter-spacing: 0.04em;
+    }
+  </style>
+
+  <script src="bpm-tap-tempo.js" defer></script>
+</head>
+<body class="bg-modern">
+
+  <template id="bpm-tap-tempo-template">
+    <link rel="stylesheet" href="bpm-tap-tempo.css">
+
+    <div class="container" id="wrapper">
+
+      <div class="header">
+        <span class="label">Tap Tempo</span>
+      </div>
+
+      <div class="bpm-wrap">
+        <div class="bpm-display" id="display">120</div>
+        <div class="bpm-unit">BPM</div>
+      </div>
+
+      <div class="pendulum-wrap">
+        <svg id="pendulum-svg" viewBox="0 0 180 230" width="180" height="230"
+             xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+
+          <polygon points="30,230 150,230 138,60 42,60"
+                   fill="#5c3310" stroke="#d4a843" stroke-width="1.5"/>
+          <polygon points="42,60 138,60 128,40 52,40"
+                   fill="#7a4820" stroke="#d4a843" stroke-width="1.5"/>
+          <polygon points="38,220 142,220 132,68 48,68"
+                   fill="#3d2308" stroke="none"/>
+
+          <line x1="60"  y1="80"  x2="120" y2="80"  stroke="#9a7a45" stroke-width="0.5" opacity="0.6"/>
+          <line x1="57"  y1="100" x2="123" y2="100" stroke="#9a7a45" stroke-width="0.5" opacity="0.4"/>
+          <line x1="55"  y1="120" x2="125" y2="120" stroke="#9a7a45" stroke-width="0.5" opacity="0.3"/>
+          <line x1="54"  y1="140" x2="126" y2="140" stroke="#9a7a45" stroke-width="0.5" opacity="0.2"/>
+
+          <rect x="52" y="155" width="76" height="36" rx="2"
+                fill="#1a0f00" stroke="#d4a843" stroke-width="1"/>
+          <text id="pendulum-bpm" x="90" y="177"
+                text-anchor="middle" font-family="Georgia,serif"
+                font-size="20" font-weight="bold" fill="#d4a843">120</text>
+
+          <text id="pendulum-tempo" x="90" y="208"
+                text-anchor="middle" font-family="Georgia,serif" font-style="italic"
+                font-size="9" fill="#9a7a45">Allegro</text>
+
+          <g id="pendulum-arm" transform="rotate(0, 90, 20)">
+            <circle cx="90" cy="20" r="4" fill="#d4a843" stroke="#9a7a45" stroke-width="1"/>
+            <line x1="90" y1="20" x2="90" y2="148" stroke="#c8952a" stroke-width="2.5"
+                  stroke-linecap="round"/>
+            <rect x="78" y="112" width="24" height="14" rx="2"
+                  fill="#d4a843" stroke="#9a7a45" stroke-width="1"/>
+          </g>
+
+          <rect x="34"  y="226" width="18" height="6" rx="2" fill="#5c3310"/>
+          <rect x="128" y="226" width="18" height="6" rx="2" fill="#5c3310"/>
+
+          <polygon points="82,40 90,22 98,40" fill="#d4a843" stroke="#9a7a45" stroke-width="1"/>
+        </svg>
+      </div>
+
+      <div class="beat-row" id="beat-row"></div>
+
+      <div class="timesig-section">
+        <div class="timesig-label">Time Signature</div>
+        <div class="timesig-row" id="timesig-row"></div>
+      </div>
+
+      <button class="tap-btn" id="tap-btn">TAP</button>
+
+      <button class="toggle-btn" id="toggle-btn">Start Metronome</button>
+
+      <div class="slider-row">
+        <span class="slider-label">BPM</span>
+        <input type="range" class="bpm-slider" id="bpm-slider" min="40" max="300" value="120" step="1">
+        <span class="slider-val" id="slider-val">120</span>
+      </div>
+
+      <div class="tempo-name" id="tempo-name">Allegro</div>
+      <div class="kbd-hint">Press <kbd>Space</kbd> to tap</div>
+
+    </div>
+  </template>
+
+  <h1>BPM Tap Tempo</h1>
+
+  <div class="theme-switcher">
+    <button class="theme-btn active" data-theme="modern">Modern</button>
+    <button class="theme-btn" data-theme="dark">Dark</button>
+    <button class="theme-btn" data-theme="light">Light</button>
+    <button class="theme-btn" data-theme="vintage">Vintage</button>
+  </div>
+
+  <bpm-tap-tempo theme="modern" min-bpm="40" max-bpm="240"></bpm-tap-tempo>
+
+  <p class="hint">Or press <kbd>Space</kbd> anywhere on this page</p>
+
+  <script>
+    const tapper  = document.querySelector('bpm-tap-tempo');
+    const bgMap   = { modern: 'bg-modern', dark: 'bg-dark', light: 'bg-light', vintage: 'bg-vintage' };
+
+    document.querySelectorAll('.theme-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const theme = btn.dataset.theme;
+
+        // Update active button
+        document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        // Update component theme
+        tapper.setAttribute('theme', theme);
+
+        // Update page background
+        document.body.className = bgMap[theme] || 'bg-modern';
+      });
+    });
+  </script>
+
+</body>
+</html>
