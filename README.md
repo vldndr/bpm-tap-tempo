@@ -2,7 +2,7 @@
 
 A highly customizable, dependency-free vanilla Web Component for calculating and visualizing musical tempo. 
 
-<img width="462" height="667" alt="image" src="https://github.com/user-attachments/assets/a294ab84-3bc5-44e2-8b81-1b11300af401" />
+<img width="231" height="333.5" alt="image" src="https://github.com/user-attachments/assets/a294ab84-3bc5-44e2-8b81-1b11300af401" />
 
 ## Overview
 
@@ -17,11 +17,11 @@ The `<bpm-tap-tempo>` component is designed to be dropped into any web applicati
 * **4 Built-in Themes:**
   * Modern (displayed in the first screenshot)
   * Dark
-    <img width="383" height="645" alt="image" src="https://github.com/user-attachments/assets/4f80ebef-7a4f-4e28-9ead-181e4ab9f65e" />
+    <img width="191.5" height="322.5" alt="image" src="https://github.com/user-attachments/assets/4f80ebef-7a4f-4e28-9ead-181e4ab9f65e" />
   * Light
-    <img width="362" height="637" alt="image" src="https://github.com/user-attachments/assets/90a36dcd-99ab-4128-81ef-3821f1433d23" />
+    <img width="181" height="318.5" alt="image" src="https://github.com/user-attachments/assets/90a36dcd-99ab-4128-81ef-3821f1433d23" />
   * Vintage
-    <img width="708" height="831" alt="image" src="https://github.com/user-attachments/assets/2a74679c-9e7a-46f7-a3c6-e12ca693f136" />
+    <img width="354" height="415.5" alt="image" src="https://github.com/user-attachments/assets/2a74679c-9e7a-46f7-a3c6-e12ca693f136" />
 
 ## Installation & Usage
 
