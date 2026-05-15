@@ -35,4 +35,4 @@ Ensure the component's JavaScript and CSS files are accessible in your project. 
 ## Live Demo
 
 You can view the component directly in the browser here:  
-**[Live Demo](https://vldndr.github.io/bpm-tap-tempo-component/)**
+**[Live Demo](https://vldndr.github.io/bpm-tap-tempo/)**
