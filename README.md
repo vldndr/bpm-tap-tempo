@@ -4,11 +4,11 @@ A highly customizable, dependency-free vanilla Web Component for calculating and
 
 <img width="462" height="667" alt="image" src="https://github.com/user-attachments/assets/a294ab84-3bc5-44e2-8b81-1b11300af401" />
 
-## 📖 Overview
+## Overview
 
 The `<bpm-tap-tempo>` component is designed to be dropped into any web application, regardless of the overarching framework (React, Vue, Angular, or Vanilla JS). It provides musicians, audio engineers, and developers with an interactive metronome and tap-tempo calculator featuring visual pendulum animations, audio cues, and different dynamic themes.
 
-## ✨ Features
+## Features
 
 * **Framework Agnostic:** Built using standard Web Component APIs (`HTMLElement`, Shadow DOM).
 * **Tap Tempo Engine:** Calculates BPM based on user click/touch intervals.
@@ -23,7 +23,7 @@ The `<bpm-tap-tempo>` component is designed to be dropped into any web applicati
   * Vintage
     <img width="708" height="831" alt="image" src="https://github.com/user-attachments/assets/2a74679c-9e7a-46f7-a3c6-e12ca693f136" />
 
-## 🚀 Installation & Usage
+## Installation & Usage
 
 Because this is a vanilla Web Component, no build tools or package managers are required.
 
