@@ -30,5 +30,9 @@ Because this is a vanilla Web Component, no build tools or package managers are 
 ### Include the files
 Ensure the component's JavaScript and CSS files are accessible in your project. Include the script in your HTML `<head>`:
 
-```html
 <script src="bpm-tap-tempo.js" defer></script>
+
+## Live Demo
+
+You can view the component directly in the browser here:  
+**[Live Demo](https://vldndr.github.io/bpm-tap-tempo-component/)**
